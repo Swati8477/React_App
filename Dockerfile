@@ -11,7 +11,8 @@ COPY . /app
 RUN npm run build
 # Stage 2
 FROM nginx:1.17.1-alpine
-RUN cp -r /app/build /usr/share/nginx/html
+RUN rm /usr/share/nginx/html/*
+Copy --from=build-step /app/build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
 
 
