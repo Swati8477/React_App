@@ -28,4 +28,3 @@ COPY . .
 CMD [ "npm", "start" ]
 =======
 CMD [ "npm", "start" ]
->>>>>>> a5741f02224ea77bd6ac1e5978ea962d06a0a8c7
