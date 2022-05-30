@@ -1,27 +1,30 @@
-# #Build Steps
-# FROM node:alpine3.10 as build-step
+#Build Steps
+FROM node:16-alpine3.14 as build-step
 
-# RUN mkdir /app
-# WORKDIR /app
+RUN mkdir /app
+WORKDIR /app
 
-# COPY package.json /app
-# RUN npm install
-# COPY . /app
-
-# RUN npm run build
-
-
-
-#base of node alpine - light image
-FROM node:16-alpine3.14
-#create a folder in docker
-WORKDIR '/app'
-
-#copy package.json in same root folder
-COPY package.json ./
-#install the packages
+COPY package.json /app
 RUN npm install
-#copy all the content in docker file
-COPY . .
-#run the application
-CMD [ "npm", "start" ]
+COPY . /app
+
+RUN npm run build
+# Stage 2
+FROM nginx:1.17.1-alpine
+COPY --from=build-step /app/build /usr/share/nginx/html
+
+
+
+# #base of node alpine - light image
+# FROM node:16-alpine3.14
+# #create a folder in docker
+# WORKDIR '/app'
+
+# #copy package.json in same root folder
+# COPY package.json ./
+# #install the packages
+# RUN npm install
+# #copy all the content in docker file
+# COPY . .
+# #run the application
+# CMD [ "npm", "start" ]
