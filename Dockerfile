@@ -24,7 +24,4 @@ RUN npm install
 #copy all the content in docker file
 COPY . .
 #run the application
-<<<<<<< HEAD
-CMD [ "npm", "start" ]
-=======
 CMD [ "npm", "start" ]
